@@ -16,5 +16,7 @@ class vistasModelo {
 		} else {
 			$contenido = 'login';
 		}
+
+		return $contenido;
 	}
 }

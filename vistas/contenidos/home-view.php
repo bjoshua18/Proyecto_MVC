@@ -48,7 +48,7 @@
 	<section id="cd-timeline" class="cd-container">
 		<div class="cd-timeline-block">
 			<div class="cd-timeline-img">
-				<img src="assets/avatars/StudetMaleAvatar.png" alt="user-picture">
+				<img src="./vistas/assets/avatars/StudetMaleAvatar.png" alt="user-picture">
 			</div>
 			<div class="cd-timeline-content">
 				<h4 class="text-center text-titles">1 - Name (Admin)</h4>
@@ -61,7 +61,7 @@
 		</div>
 		<div class="cd-timeline-block">
 			<div class="cd-timeline-img">
-				<img src="assets/avatars/StudetMaleAvatar.png" alt="user-picture">
+				<img src="./vistas/assets/avatars/StudetMaleAvatar.png" alt="user-picture">
 			</div>
 			<div class="cd-timeline-content">
 				<h4 class="text-center text-titles">2 - Name (Teacher)</h4>
@@ -74,7 +74,7 @@
 		</div>
 		<div class="cd-timeline-block">
 			<div class="cd-timeline-img">
-				<img src="assets/avatars/StudetMaleAvatar.png" alt="user-picture">
+				<img src="./vistas/assets/avatars/StudetMaleAvatar.png" alt="user-picture">
 			</div>
 			<div class="cd-timeline-content">
 				<h4 class="text-center text-titles">3 - Name (Student)</h4>
@@ -87,7 +87,7 @@
 		</div>
 		<div class="cd-timeline-block">
 			<div class="cd-timeline-img">
-				<img src="assets/avatars/StudetMaleAvatar.png" alt="user-picture">
+				<img src="./vistas/assets/avatars/StudetMaleAvatar.png" alt="user-picture">
 			</div>
 			<div class="cd-timeline-content">
 				<h4 class="text-center text-titles">4 - Name (Personal Ad.)</h4>

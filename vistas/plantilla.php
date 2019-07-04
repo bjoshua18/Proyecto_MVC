@@ -10,17 +10,27 @@
 </head>
 
 <body>
-	<!-- SideBar -->
-	<?php include('vistas/modulos/sidebar.php'); ?>
+	<?php
+		$vt = new vistasControlador();
+		$vistasR = $vt->obtener_vistas_controlador();
 
-	<!-- Content page-->
-	<section class="full-box dashboard-contentPage">
-		<!-- NavBar -->
-		<?php include('vistas/modulos/navbar.php'); ?>
+		if($vistasR == 'login'):
+			require_once('./vistas/contenidos/login-view.php');
+		else:
+	?>
+		<!-- SideBar -->
+		<?php include('vistas/modulos/sidebar.php'); ?>
 
-		<!-- Content page -->
-		
-	</section>
+		<!-- Content page-->
+		<section class="full-box dashboard-contentPage">
+			<!-- NavBar -->
+			<?php include('vistas/modulos/navbar.php'); ?>
+
+			<!-- Content page -->
+			<?php require_once($vistasR) ?>
+		</section>
+
+	<?php endif; ?>
 
 	<!--====== Scripts -->
 	<?php include('vistas/modulos/scripts.php'); ?>
