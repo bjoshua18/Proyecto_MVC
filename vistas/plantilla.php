@@ -1,3 +1,8 @@
+<?php
+	session_start();
+	$peticionAjax = false;
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
