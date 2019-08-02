@@ -53,7 +53,50 @@ class mainModel {
 		$cadena = str_ireplace('[', '', $cadena);
 		$cadena = str_ireplace(']', '', $cadena);
 		$cadena = str_ireplace('==', '', $cadena);
+		$cadena = str_ireplace(';', '', $cadena);
 
 		return $cadena;
+	}
+
+	protected function sweet_alert($datos) { // Usamos un plugin llamado sweetalert2
+		if($datos['Alerta'] == 'simple') {
+			$alerta = "
+				<script>
+					swal(
+						'{$datos["Titulo"]}',
+						'{$datos["Texto"]}',
+						'{$datos["Tipo"]}'
+					)
+				</script>
+			";
+		} elseif ($datos['Alerta'] == 'recargar') {
+			$alerta = "
+				<script>
+					swal({
+						title: '{$datos["Titulo"]}',
+						text: '{$datos["Texto"]}',
+						type: '{$datos["Tipo"]}',
+						confirmButtonText: 'Aceptar'
+					}).then(() => {
+							location.reload();
+						}
+					})
+				</script>
+			";
+		} elseif ($datos['Alerta'] == 'limpiar') {
+			$alerta = "
+				<script>
+					swal({
+						title: '{$datos["Titulo"]}',
+						text: '{$datos["Texto"]}',
+						type: '{$datos["Tipo"]}',
+						confirmButtonText: 'Aceptar'
+					}).then(() => {
+							$('.FormularioAjax')[0].reset();
+						}
+					})
+				</script>
+			";
+		}
 	}
 }
