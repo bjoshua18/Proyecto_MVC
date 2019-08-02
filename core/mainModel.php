@@ -37,4 +37,23 @@ class mainModel {
 
 		return $letra . $num;
 	}
+
+	protected function limpiar_cadena($cadena) {
+		$cadena = trim($cadena); // Elimina los espacios en blanco en los extremos
+		$cadena = stripslashes($cadena); // Elimina las barras invertidas
+		$cadena = str_ireplace('<script>', '', $cadena); // Busca en la string del tercer parámetro la string del primer parámetro
+		$cadena = str_ireplace('</script>', '', $cadena); // y la reemplaza por la del segundo
+		$cadena = str_ireplace('<script src', '', $cadena);
+		$cadena = str_ireplace('<script type=', '', $cadena);
+		$cadena = str_ireplace('SELECT * FROM', '', $cadena);
+		$cadena = str_ireplace('DELETE FROM', '', $cadena);
+		$cadena = str_ireplace('INSERT INTO', '', $cadena);
+		$cadena = str_ireplace('--', '', $cadena);
+		$cadena = str_ireplace('^', '', $cadena);
+		$cadena = str_ireplace('[', '', $cadena);
+		$cadena = str_ireplace(']', '', $cadena);
+		$cadena = str_ireplace('==', '', $cadena);
+
+		return $cadena;
+	}
 }
