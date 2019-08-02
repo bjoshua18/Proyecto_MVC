@@ -28,4 +28,13 @@ class mainModel {
 		$output = openssl_decrypt(base64_decode($string), METHOD, $key, 0, $iv);
 		return $output;
 	}
+
+	protected function generar_codigo_aleatorio($letra, $longitud, $num) {
+		for($i = 1; $i < $longitud; $i++) {
+			$numero = rand(0,9);
+			$letra .= $numero;
+		}
+
+		return $letra . $num;
+	}
 }
