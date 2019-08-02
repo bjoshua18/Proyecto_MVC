@@ -1,8 +1,3 @@
-<?php
-	session_start();
-	$peticionAjax = false;
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,12 +11,21 @@
 
 <body>
 	<?php
+		$peticionAjax = false;
+
+		require_once './controladores/vistasControlador.php';
+
 		$vt = new vistasControlador();
 		$vistasR = $vt->obtener_vistas_controlador();
 
-		if($vistasR == 'login'):
-			require_once('./vistas/contenidos/login-view.php');
+		if($vistasR == 'login' || $vistasR == '404'):
+			if($vistasR == 'login') {
+				require_once('./vistas/contenidos/login-view.php');
+			} else {
+				require_once('./vistas/contenidos/404-view.php');
+			}
 		else:
+			session_start();
 	?>
 		<!-- SideBar -->
 		<?php include('vistas/modulos/sidebar.php'); ?>

@@ -98,5 +98,7 @@ class mainModel {
 				</script>
 			";
 		}
+
+		return $alerta;
 	}
 }

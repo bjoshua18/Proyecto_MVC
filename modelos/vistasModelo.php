@@ -13,8 +13,12 @@ class vistasModelo {
 			else
 				$contenido = 'login';
 				
-		} else {
+		} else if($vistas == 'login') {
 			$contenido = 'login';
+		} else if($vistas == 'index') {
+			$contenido = 'login';
+		} else {
+			$contenido = '404';
 		}
 
 		return $contenido;
