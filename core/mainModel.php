@@ -13,6 +13,22 @@ class mainModel {
 		return $respuesta;
 	}
 
+	protected function agregar_cuenta($datos) {
+		$sql = self::conectar()->prepare('INSERT INTO cuenta (CuentaCodigo, CuentaPrivilegio, CuentaUsuario, CuentaClave, CuentaEmail, CuentaEstado, CuentaTipo, CuentaGenero, CuentaFoto) VALUES (:Codigo, :Privilegio, :Usuario, :Clave, :Email, :Estado, :Tipo, :Genero, :Foto)');
+		$sql->bindParam(':Codigo', $datos['Codigo']);
+		$sql->bindParam(':Privilegio', $datos['Privilegio']);
+		$sql->bindParam(':Usuario', $datos['Usuario']);
+		$sql->bindParam(':Clave', $datos['Clave']);
+		$sql->bindParam(':Email', $datos['Email']);
+		$sql->bindParam(':Estado', $datos['Estado']);
+		$sql->bindParam(':Tipo', $datos['Tipo']);
+		$sql->bindParam(':Genero', $datos['Genero']);
+		$sql->bindParam(':Foto', $datos['Foto']);
+
+		$sql->execute();
+		return $sql;
+	}
+
 	public function encryption($string) {
 		$output = false;
 		$key = hash('sha256', SECRET_KEY);
