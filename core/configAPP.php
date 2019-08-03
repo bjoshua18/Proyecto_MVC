@@ -2,9 +2,9 @@
 
 // DATABASE
 
-const SERVER = "";
-const DB = "";
-const USER = "";
+const SERVER = "localhost";
+const DB = "biblioteca_publica";
+const USER = "root";
 const PASS = "";
 
 const SGBD = 'mysql:host='.SERVER.';dbname='.DB;
