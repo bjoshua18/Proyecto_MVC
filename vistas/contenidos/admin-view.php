@@ -34,7 +34,7 @@
 			<h3 class="panel-title"><i class="zmdi zmdi-plus"></i> &nbsp; NUEVO ADMINISTRADOR</h3>
 		</div>
 		<div class="panel-body">
-			<form>
+			<form action="" method="POST" data-form="save" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
 				<fieldset>
 					<legend><i class="zmdi zmdi-account-box"></i> &nbsp; Información personal</legend>
 					<div class="container-fluid">
@@ -168,6 +168,7 @@
 					<button type="submit" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i>
 						Guardar</button>
 				</p>
+				<div class="RespuestaAjax"></div>
 			</form>
 		</div>
 	</div>
