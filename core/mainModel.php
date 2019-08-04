@@ -115,10 +115,10 @@ class mainModel {
 						text: '{$datos["Texto"]}',
 						type: '{$datos["Tipo"]}',
 						confirmButtonText: 'Aceptar'
-					}).then(() => {
+					}).then((result) => {
 							$('.FormularioAjax')[0].reset();
 						}
-					})
+					)
 				</script>
 			";
 		}

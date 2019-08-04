@@ -1,6 +1,6 @@
 <?php
 
-$peticionAjax ? require_once "../modelos/administradorModelo" : require_once "./modelos/administradorModelo";
+$peticionAjax ? require_once "../modelos/administradorModelo.php" : require_once "./modelos/administradorModelo.php";
 
 class administradorControlador extends administradorModelo {
 	public function agregar_administrador_controlador() {
@@ -14,8 +14,8 @@ class administradorControlador extends administradorModelo {
 		$password1 = mainModel::limpiar_cadena($_POST['password1-reg']);
 		$password2 = mainModel::limpiar_cadena($_POST['password2-reg']);
 		$email = mainModel::limpiar_cadena($_POST['email-reg']);
-		$genero = mainModel::limpiar_cadena($_POST['genero-reg']);
-		$privilegio = mainModel::limpiar_cadena($_POST['privilegio-reg']);
+		$genero = mainModel::limpiar_cadena($_POST['optionsGenero']);
+		$privilegio = mainModel::limpiar_cadena($_POST['optionsPrivilegio']);
 
 		// Foto de perfil por defecto segun genero
 		if($genero === 'Masculino')
@@ -86,7 +86,7 @@ class administradorControlador extends administradorModelo {
 							'Foto' => $foto
 						];
 
-						$guardarCuenta = agregar_cuenta($dataAC);
+						$guardarCuenta = mainModel::agregar_cuenta($dataAC);
 
 						// Comprobamos que se agregó la cuenta correctamente
 						if($guardarCuenta->rowCount() >= 1) {
