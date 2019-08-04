@@ -67,6 +67,64 @@ class administradorControlador extends administradorModelo {
 							'Texto' => 'El USUARIO que acaba de ingresar ya se encuentra registrado en el sistema',
 							'Tipo' => 'error'
 						];
+					} else {
+						// Procesamos los datos la cuenta de admin
+						$consulta4 = mainModel::ejecutar_consulta_simple("SELECT id FROM cuenta");
+						$numero = ($consulta4->rowCount())+1;
+						$codigo = mainModel::generar_codigo_aleatorio('AC', 7, $numero);
+						$clave = mainModel::encryption($password1);
+
+						$dataAC = [
+							'Codigo' => $codigo,
+							'Privilegio' => $privilegio,
+							'Usuario' => $usuario,
+							'Clave' => $clave,
+							'Email' => $email,
+							'Estado' => 'Activo',
+							'Tipo' => 'Administrador',
+							'Genero' => $genero,
+							'Foto' => $foto
+						];
+
+						$guardarCuenta = agregar_cuenta($dataAC);
+
+						// Comprobamos que se agregó la cuenta correctamente
+						if($guardarCuenta->rowCount() >= 1) {
+							$dataAD = [
+								'DNI' => $dni,
+								'Nombre' => $nombre,
+								'Apellido' => $apellido,
+								'Telefono' => $telefono,
+								'Direccion' => $direccion,
+								'Codigo' => $codigo
+							];
+
+							$guardarAdmin = administradorModelo::agregar_administrador_modelo($dataAD);
+
+							if($guardarAdmin->rowCount() >= 1) {
+								$alerta = [
+									'Alerta' => 'limpiar',
+									'Titulo' => 'Administrador registrado',
+									'Texto' => 'El administrador se registró con éxito en el sistema',
+									'Tipo' => 'success'
+								];
+							} else {
+								mainModel::eliminar_cuenta($codigo);// Si hay un error al agregar el admin, hay que borrar la cuenta asociada que se agregó previamente
+								$alerta = [
+									'Alerta' => 'simple',
+									'Titulo' => 'Ocurrió un error inesperado',
+									'Texto' => 'No se ha podido registrar el administrador',
+									'Tipo' => 'error'
+								];
+							}
+						} else {
+							$alerta = [
+								'Alerta' => 'simple',
+								'Titulo' => 'Ocurrió un error inesperado',
+								'Texto' => 'No se ha podido registrar el administrador',
+								'Tipo' => 'error'
+							];
+						}
 					}
 				}
 			}
