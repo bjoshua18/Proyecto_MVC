@@ -3,7 +3,7 @@ $peticionAjax ? require_once "../modelos/loginModelo.php" : require_once "./mode
 
 class loginControlador extends loginModelo {
 	
-	public function inciar_sesion_controlador() {
+	public function iniciar_sesion_controlador() {
 		$usuario = mainModel::limpiar_cadena($_POST['usuario']);
 		$clave = mainModel::limpiar_cadena($_POST['clave']);
 
@@ -14,7 +14,7 @@ class loginControlador extends loginModelo {
 			'Clave' => $clave
 		];
 
-		$datosCuenta = loginModelo::inciar_sesion_modelo($datosLogin);
+		$datosCuenta = loginModelo::iniciar_sesion_modelo($datosLogin);
 
 		if($datosCuenta->rowCount() == 1) {
 			$row = $datosCuenta->fetch();
