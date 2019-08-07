@@ -3,4 +3,7 @@ $peticionAjax ? require_once "../modelos/loginModelo.php" : require_once "./mode
 
 class loginControlador extends loginModelo {
 	
+	public function inciar_sesion_controlador() {
+		
+	}
 }
