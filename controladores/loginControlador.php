@@ -41,7 +41,17 @@ class loginControlador extends loginModelo {
 
 			$insertarBitacora = mainModel::guardar_bitacora($datosBitacora);
 			if($insertarBitacora->rowCount() >= 1) {
-				
+				session_start(['name' => 'SBP']);
+				$_SESSION['usuario_sbp'] = $row['CuentaUsuario'];
+				$_SESSION['tipo_sbp'] = $row['CuentaTipo'];
+				$_SESSION['privilegio_sbp'] = $row['CuentaPrivilegio'];
+				$_SESSION['foto_sbp'] = $row['CuentaFoto'];
+				$_SESSION['token_sbp'] = md5(uniqid(mt_rand(), true)); // Creamos un token unico para el usuario
+				$_SESSION['codigo_cuenta_sbp'] = $row['CuentaCodigo'];
+				$_SESSION['codigo_bitacora_sbp'] = $codigoB;
+
+				$url = $row['CuentaTipo'] == 'Administrador' ? SERVERURL.'home/' : SERVERURL.'catalog/';
+				return $urlLocation = "<script> window.location='$url' </script>";
 			} else {
 				$alerta = [
 					'Alerta' => 'simple',
