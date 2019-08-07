@@ -60,6 +60,14 @@ class mainModel {
 		return $sql;
 	}
 
+	protected function eliminar_bitacora($codigo) {
+		$sql = self::conectar()->prepare("DELETE FROM bitacora WHERE CuentaCodigo=:Codigo");
+		$sql->bindParam(":Codigo", $codigo);
+
+		$sql->execute();
+		return $sql;
+	}
+
 	public function encryption($string) {
 		$output = false;
 		$key = hash('sha256', SECRET_KEY);
