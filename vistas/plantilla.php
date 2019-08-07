@@ -28,6 +28,12 @@
 			}
 		else:
 			session_start(['name' => 'SBP']);
+
+			require_once './controladores/loginControlador.php';
+
+			$lc = new loginControlador();
+			if(!isset($_SESSION['token_sbp']) || !isset($_SESSION['usuario_sbp']))
+				$lc->forzar_cierre_sesion_controlador();
 	?>
 		<!-- SideBar -->
 		<?php include('vistas/modulos/sidebar.php'); ?>

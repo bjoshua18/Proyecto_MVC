@@ -73,4 +73,9 @@ class loginControlador extends loginModelo {
 			return mainModel::sweet_alert($alerta);
 		}
 	}
+
+	public function forzar_cierre_sesion_controlador() {
+		session_destroy();
+		return header('Location: '.SERVERURL.'login/');
+	}
 }
