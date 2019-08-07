@@ -5,6 +5,3 @@
 <script src="./vistas/js/ripples.min.js"></script>
 <script src="./vistas/js/jquery.mCustomScrollbar.concat.min.js"></script>
 <script src="./vistas/js/main.js"></script>
-<script>
-$.material.init();
-</script>

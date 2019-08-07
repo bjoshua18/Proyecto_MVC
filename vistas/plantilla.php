@@ -47,8 +47,13 @@
 			<?php require_once($vistasR) ?>
 		</section>
 
-	<?php endif; ?>
-
+		<?php 
+				include('vistas/modulos/logoutScript.php'); // Este script se situa aqui para evitar que los que no son usuarios, puedan verlo
+			endif; 
+		?>
+	<script>
+		$.material.init();
+	</script>
 </body>
 
 </html>
