@@ -51,6 +51,15 @@ class mainModel {
 		return $sql;
 	}
 
+	protected function actualizar_bitacora($codigo, $hora) {
+		$sql = self::conectar()->prepare("UPDATE bitacora SET BitacoraHoraFinal=:Hora WHERE BitacoraCodigo=:Codigo");
+		$sql->bindParam(":Hora", $hora);
+		$sql->bindParam(":Codigo", $codigo);
+
+		$sql->execute();
+		return $sql;
+	}
+
 	public function encryption($string) {
 		$output = false;
 		$key = hash('sha256', SECRET_KEY);
