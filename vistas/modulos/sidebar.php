@@ -8,7 +8,7 @@
 		<!-- SideBar User info -->
 		<div class="full-box dashboard-sideBar-UserInfo">
 			<figure class="full-box">
-				<img src="./vistas/assets/avatars/AdminMaleAvatar.png" alt="UserIcon">
+				<img src="./vistas/assets/avatars/<?= $_SESSION['foto_sbp']?>" alt="UserIcon">
 				<figcaption class="text-center text-titles">User Name</figcaption>
 			</figure>
 			<ul class="full-box list-unstyled text-center">
@@ -23,7 +23,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#!" title="Salir del sistema" class="btn-exit-system">
+					<a href="<?= $lc->encryption($_SESSION['token_sbp']) ?>" title="Salir del sistema" class="btn-exit-system">
 						<i class="zmdi zmdi-power"></i>
 					</a>
 				</li>

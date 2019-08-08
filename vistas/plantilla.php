@@ -7,6 +7,8 @@
 	<meta name="viewport"
 		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="<?=SERVERURL?>vistas/css/main.css">
+	<!--====== Scripts -->
+	<?php include('vistas/modulos/scripts.php'); ?>
 </head>
 
 <body>
@@ -25,7 +27,13 @@
 				require_once('./vistas/contenidos/404-view.php');
 			}
 		else:
-			session_start();
+			session_start(['name' => 'SBP']);
+
+			require_once './controladores/loginControlador.php';
+
+			$lc = new loginControlador();
+			if(!isset($_SESSION['token_sbp']) || !isset($_SESSION['usuario_sbp']))
+				$lc->forzar_cierre_sesion_controlador();
 	?>
 		<!-- SideBar -->
 		<?php include('vistas/modulos/sidebar.php'); ?>
@@ -39,10 +47,13 @@
 			<?php require_once($vistasR) ?>
 		</section>
 
-	<?php endif; ?>
-
-	<!--====== Scripts -->
-	<?php include('vistas/modulos/scripts.php'); ?>
+		<?php 
+				include('vistas/modulos/logoutScript.php'); // Este script se situa aqui para evitar que los que no son usuarios, puedan verlo
+			endif; 
+		?>
+	<script>
+		$.material.init();
+	</script>
 </body>
 
 </html>
