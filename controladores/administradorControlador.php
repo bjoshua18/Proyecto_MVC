@@ -163,6 +163,71 @@ class administradorControlador extends administradorModelo {
 		// Calculamos el número de páginas totales
 		$Npaginas = ceil($total / $registros);
 
+		// Creamos la tabla con todos los registros de una página
+		$tabla .= '
+			<div class="table-responsive">
+				<table class="table table-hover text-center">
+					<thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th class="text-center">DNI</th>
+							<th class="text-center">NOMBRES</th>
+							<th class="text-center">APELLIDOS</th>
+							<th class="text-center">TELÉFONO</th>
+							<th class="text-center">A. CUENTA</th>
+							<th class="text-center">A. DATOS</th>
+							<th class="text-center">ELIMINAR</th>
+						</tr>
+					</thead>
+					<tbody>
+		';
+
+		if($total >= 1 && $pagina <= $Npaginas) {
+			$contador = $inicio + 1;
+			foreach($datos as $row) {
+				$tabla .= '
+							<tr>
+								<td>'.$contador.'</td>
+								<td>'.$row['AdminDNI'].'</td>
+								<td>'.$row['AdminNombre'].'</td>
+								<td>'.$row['AdminApellido'].'</td>
+								<td>'.$row['AdminTelefono'].'</td>
+								<td>
+									<a href="#!" class="btn btn-success btn-raised btn-xs">
+										<i class="zmdi zmdi-refresh"></i>
+									</a>
+								</td>
+								<td>
+									<a href="#!" class="btn btn-success btn-raised btn-xs">
+										<i class="zmdi zmdi-refresh"></i>
+									</a>
+								</td>
+								<td>
+									<form>
+										<button type="submit" class="btn btn-danger btn-raised btn-xs">
+											<i class="zmdi zmdi-delete"></i>
+										</button>
+									</form>
+								</td>
+							</tr>
+			';
+
+			$contador++;
+			}
+		} else {
+			$tabla .= '
+							<tr>
+								<td colspan="5">No hay registros en el sistema</td>
+							</tr>
+			';
+		}
+
+		$tabla .= '
+					</tbody>
+				</table>
+			</div>
+		';
+
 		return $tabla;
 	}
 }
