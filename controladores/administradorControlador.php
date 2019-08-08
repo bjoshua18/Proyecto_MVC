@@ -3,6 +3,8 @@
 $peticionAjax ? require_once "../modelos/administradorModelo.php" : require_once "./modelos/administradorModelo.php";
 
 class administradorControlador extends administradorModelo {
+
+	// Controlador para agregar administrador
 	public function agregar_administrador_controlador() {
 		$dni = mainModel::limpiar_cadena($_POST['dni-reg']);
 		$nombre = mainModel::limpiar_cadena($_POST['nombre-reg']);
@@ -132,5 +134,35 @@ class administradorControlador extends administradorModelo {
 
 		return mainModel::sweet_alert($alerta);
 
+	}
+
+	// Controlador para paginar administradores
+	public function paginador_administrador_controlador($pagina, $registros, $privilegio, $codigo) {
+
+		// Limpieza de parametros
+		$pagina = mainModel::limpiar_cadena($pagina);
+		$registros = mainModel::limpiar_cadena($registros);
+		$privilegio = mainModel::limpiar_cadena($privilegio);
+		$codigo = mainModel::limpiar_cadena($codigo);
+
+		$tabla = '';
+
+		$pagina = (isset($pagina) && $pagina > 0) ? (int) $pagina : 1;	// Obtenemos la pagina
+		$inicio = ($pagina > 0) ? (($pagina * $registros) - $registros) : 0; // Calculamos el inicio de registros de la pagina
+
+		$conexion = mainModel::conectar(); // Obtenemos la conexion con la db
+
+		// Creamos la query y obtenemos los datos
+		$datos = $conexion->query("SELECT SQL_CALC_FOUND_ROWS * FROM admin WHERE CuentaCodigo!='$codigo' AND id!='1' ORDER BY AdminNombre ASC LIMIT $inicio, $registros");
+		$datos = $datos->fetchAll();
+
+		// Obtenemos el número de registros totales
+		$total = $conexion->query('SELECT FOUND_ROWS()');
+		$total = (int) $total->fetchColumn();
+
+		// Calculamos el número de páginas totales
+		$Npaginas = ceil($total / $registros);
+
+		return $tabla;
 	}
 }
