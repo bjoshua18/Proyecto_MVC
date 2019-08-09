@@ -236,10 +236,13 @@ class administradorControlador extends administradorModelo {
 				if($privilegio == 1) {
 					$tabla .= '
 								<td>
-									<form>
+									<form action="'.SERVERURL.'ajax/administradorAjax.php" method="POST" class="FormularioAjax" data-form="delete" entype="multipart/form-data" autocomplete="off">
+										<input type="hidden" name="codigo-del" value="'.mainModel::encryption($row["CuentaCodigo"]).'" />
+										<input type="hidden" name="privilegio-admin" value="'.mainModel::encryption($privilegio).'" />
 										<button type="submit" class="btn btn-danger btn-raised btn-xs">
 											<i class="zmdi zmdi-delete"></i>
 										</button>
+										<div class="RespuestaAjax"></div>
 									</form>
 								</td>
 					';
