@@ -266,6 +266,55 @@ class administradorControlador extends administradorModelo {
 			</div>
 		';
 
+		// Funcionalidad de los botones
+		if($total >= 1 && $pagina <= $Npaginas) {
+			$tabla .= '
+				<!-- Paginacion -->
+				<nav class="text-center">
+					<ul class="pagination pagination-sm">
+			';
+
+			// Boton de pagina anterior
+			if($pagina == 1) {
+				$tabla .= '
+						<li class="disabled"><a><i class="zmdi zmdi-arrow-left"></i></a></li>
+				';
+			} else {
+				$tabla .= '
+						<li><a href="'.SERVERURL.'adminlist/'.($pagina - 1).'/"><i class="zmdi zmdi-arrow-left"></i></a></li>
+				';
+			}
+
+			// Botnones de paginas intermedias
+			for($i = 1; $i <= $Npaginas; $i++) {
+				if($i == $pagina) {
+					$tabla .= '
+						<li class="active"><a href="'.SERVERURL.'adminlist/'.$i.'/">'.$i.'</i></a></li>
+					';
+				} else {
+					$tabla .= '
+						<li><a href="'.SERVERURL.'adminlist/'.$i.'/">'.$i.'</i></a></li>
+					';
+				}
+			}
+
+			// Boton de pagina siguiente
+			if($pagina == $Npaginas) {
+				$tabla .= '
+						<li class="disabled"><a><i class="zmdi zmdi-arrow-right"></i></a></li>
+				';
+			} else {
+				$tabla .= '
+						<li><a href="'.SERVERURL.'adminlist/'.($pagina + 1).'/"><i class="zmdi zmdi-arrow-right"></i></a></li>
+				';
+			}
+
+			$tabla .= '
+					</ul>
+				</nav>
+			';
+		}
+
 		return $tabla;
 	}
 }
