@@ -174,9 +174,22 @@ class administradorControlador extends administradorModelo {
 							<th class="text-center">NOMBRES</th>
 							<th class="text-center">APELLIDOS</th>
 							<th class="text-center">TELÉFONO</th>
+		';
+
+		if($privilegio <= 2) {
+			$tabla .= '
 							<th class="text-center">A. CUENTA</th>
 							<th class="text-center">A. DATOS</th>
+			';
+		}
+
+		if($privilegio == 1) {
+			$tabla .= '
 							<th class="text-center">ELIMINAR</th>
+			';
+		}
+							
+		$tabla .= '
 						</tr>
 					</thead>
 					<tbody>
@@ -192,16 +205,25 @@ class administradorControlador extends administradorModelo {
 								<td>'.$row['AdminNombre'].'</td>
 								<td>'.$row['AdminApellido'].'</td>
 								<td>'.$row['AdminTelefono'].'</td>
+				';
+
+				if($privilegio <= 2) {
+					$tabla .= '
 								<td>
-									<a href="#!" class="btn btn-success btn-raised btn-xs">
+									<a href="'.SERVERURL.'myaccount/admin/'.mainModel::encryption($row['CuentaCodigo']).'/" class="btn btn-success btn-raised btn-xs">
 										<i class="zmdi zmdi-refresh"></i>
 									</a>
 								</td>
 								<td>
-									<a href="#!" class="btn btn-success btn-raised btn-xs">
+									<a href="'.SERVERURL.'mydata/admin/'.mainModel::encryption($row['CuentaCodigo']).'/" class="btn btn-success btn-raised btn-xs">
 										<i class="zmdi zmdi-refresh"></i>
 									</a>
 								</td>
+					';
+				}
+
+				if($privilegio == 1) {
+					$tabla .= '
 								<td>
 									<form>
 										<button type="submit" class="btn btn-danger btn-raised btn-xs">
@@ -209,17 +231,33 @@ class administradorControlador extends administradorModelo {
 										</button>
 									</form>
 								</td>
-							</tr>
-			';
+					';
+				}
 
-			$contador++;
+				$tabla .= '
+							</tr>
+				';
+
+				$contador++;
 			}
 		} else {
-			$tabla .= '
+			if($total >= 1) {
+				$tabla .= '
+							<tr>
+								<td colspan="5">
+									<a href="'.SERVERURL.'adminlist/" class="btn btn-sm btn-info btn-raised">
+										Haga click aquí para recargar el listado
+									</a>
+								</td>
+							</tr>
+				';
+			} else {
+				$tabla .= '
 							<tr>
 								<td colspan="5">No hay registros en el sistema</td>
 							</tr>
-			';
+				';
+			}
 		}
 
 		$tabla .= '

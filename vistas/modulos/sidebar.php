@@ -38,14 +38,14 @@
 			</li>
 			<li>
 				<a href="#!" class="btn-sideBar-SubMenu">
-					<i class="zmdi zmdi-case zmdi-hc-fw"></i> AdministraciÃ³n <i class="zmdi zmdi-caret-down pull-right"></i>
+					<i class="zmdi zmdi-case zmdi-hc-fw"></i> Administración <i class="zmdi zmdi-caret-down pull-right"></i>
 				</a>
 				<ul class="list-unstyled full-box">
 					<li>
 						<a href="./company"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> Empresa</a>
 					</li>
 					<li>
-						<a href="./category"><i class="zmdi zmdi-labels zmdi-hc-fw"></i> CategorÃƒÂ­as</a>
+						<a href="./category"><i class="zmdi zmdi-labels zmdi-hc-fw"></i> Categorí­as</a>
 					</li>
 					<li>
 						<a href="./provider"><i class="zmdi zmdi-truck zmdi-hc-fw"></i> Proveedores</a>
