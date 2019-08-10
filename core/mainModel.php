@@ -135,7 +135,7 @@ class mainModel {
 					}).then(() => {
 							location.reload();
 						}
-					})
+					)
 				</script>
 			";
 		} elseif ($datos['Alerta'] == 'limpiar') {

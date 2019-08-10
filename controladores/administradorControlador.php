@@ -334,6 +334,69 @@ class administradorControlador extends administradorModelo {
 
 	// Controlador para eliminar administradores
 	public function eliminar_administrador_controlador() {
-		
+
+		// Desencriptamos y limpiamos los parametros que vamos a necesitar
+		$codigo = mainModel::decryption($_POST['codigo-del']);
+		$adminPrivilegio = mainModel::decryption($_POST['privilegio-admin']);
+
+		$codigo = mainModel::limpiar_cadena($codigo);
+		$adminPrivilegio = mainModel::limpiar_cadena($adminPrivilegio);
+
+		// Comprobamos que el privilegio sea el correcto
+		if($adminPrivilegio == 1) {
+			$query1 = mainModel::ejecutar_consulta_simple("SELECT id FROM admin WHERE CuentaCodigo='$codigo'");
+			$datosAdmin = $query1->fetch();
+
+			// Comprobamos que no eliminamos al admin principal
+			if($datosAdmin['id'] != 1) {
+				$DelAdmin = administradorModelo::eliminar_administrador_modelo($codigo); // Eliminamos el registro de la tabla admin
+				mainModel::eliminar_bitacora($codigo); // Eliminamos los registros de la tabla bitacora
+
+				// Comprobamos que se elimino el registro correctamente
+				if($DelAdmin->rowCount() >= 1) {
+					$DelCuenta = mainModel::eliminar_cuenta($codigo); // Eliminamos el registro de la tabla cuenta
+
+					// Comprobamos que se elimino el registro correctamente
+					if($DelCuenta->rowCount() >= 1) {
+						$alerta = [
+							'Alerta' => 'recargar',
+							'Titulo' => 'Administrador eliminado',
+							'Texto' => 'El administrador fue eliminado con éxito del sistema',
+							'Tipo' => 'success'
+						];
+					} else {
+						$alerta = [
+							'Alerta' => 'simple',
+							'Titulo' => 'Ocurrió un error inesperado',
+							'Texto' => 'No podemos eliminar esta cuenta en este momento',
+							'Tipo' => 'error'
+						];
+					}
+				} else {
+					$alerta = [
+						'Alerta' => 'simple',
+						'Titulo' => 'Ocurrió un error inesperado',
+						'Texto' => 'No podemos eliminar este administrador en estos momentos',
+						'Tipo' => 'error'
+					];
+				}
+			} else {
+				$alerta = [
+					'Alerta' => 'simple',
+					'Titulo' => 'Ocurrió un error inesperado',
+					'Texto' => 'No podemos eliminar el administrador principal del sistema',
+					'Tipo' => 'error'
+				];
+			}
+		} else {
+			$alerta = [
+				'Alerta' => 'simple',
+				'Titulo' => 'Ocurrió un error inesperado',
+				'Texto' => 'Tú no tienes los permisos necesarios para realizar esta operación',
+				'Tipo' => 'error'
+			];
+		}
+
+		return mainModel::sweet_alert($alerta);
 	}
 }
