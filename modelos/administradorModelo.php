@@ -16,7 +16,11 @@ class administradorModelo extends mainModel {
 		return $sql;
 	}
 
-	protected function eliminar_administrador_modelo() {
-		
+	protected function eliminar_administrador_modelo($codigo) {
+		$query = mainModel::conectar()->prepare('DELETE FROM admin WHERE CuentaCodigo=:Codigo');
+		$query->bindParam(':Codigo', $codigo);
+
+		$query->execute();
+		return $query;
 	}
 }
