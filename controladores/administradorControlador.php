@@ -148,23 +148,42 @@ class administradorControlador extends administradorModelo {
 	}
 
 	// Controlador para paginar administradores
-	public function paginador_administrador_controlador($pagina, $registros, $privilegio, $codigo) {
+	public function paginador_administrador_controlador($pagina, $registros, $privilegio, $codigo, $busqueda = '') {
 
 		// Limpieza de parametros
 		$pagina = mainModel::limpiar_cadena($pagina);
 		$registros = mainModel::limpiar_cadena($registros);
 		$privilegio = mainModel::limpiar_cadena($privilegio);
 		$codigo = mainModel::limpiar_cadena($codigo);
+		$busqueda = mainModel::limpiar_cadena($busqueda);
 
 		$tabla = '';
 
 		$pagina = (isset($pagina) && $pagina > 0) ? (int) $pagina : 1;	// Obtenemos la pagina
 		$inicio = ($pagina > 0) ? (($pagina * $registros) - $registros) : 0; // Calculamos el inicio de registros de la pagina
 
+		// Comprobamos si es una busqueda
+		if(isset($busqueda) && $busqueda != '') {
+			$consulta = "SELECT SQL_CALC_FOUND_ROWS *
+			FROM admin 
+			WHERE ((CuentaCodigo!='$codigo' AND id!='1')
+			  AND (
+					AdminNombre LIKE '%$busqueda%' OR 
+					AdminApellido LIKE '%$busqueda%' OR 
+					AdminDNI LIKE '%$busqueda%' OR 
+					AdminTelefono LIKE '%$busqueda%'))  
+			ORDER BY AdminNombre ASC LIMIT $inicio, $registros";
+
+			$paginaurl = 'adminsearch';
+		} else {
+			$consulta = "SELECT SQL_CALC_FOUND_ROWS * FROM admin WHERE CuentaCodigo!='$codigo' AND id!='1' ORDER BY AdminNombre ASC LIMIT $inicio, $registros";
+			$paginaurl = 'adminlist';
+		}
+
 		$conexion = mainModel::conectar(); // Obtenemos la conexion con la db
 
 		// Creamos la query y obtenemos los datos
-		$datos = $conexion->query("SELECT SQL_CALC_FOUND_ROWS * FROM admin WHERE CuentaCodigo!='$codigo' AND id!='1' ORDER BY AdminNombre ASC LIMIT $inicio, $registros");
+		$datos = $conexion->query($consulta);
 		$datos = $datos->fetchAll();
 
 		// Obtenemos el número de registros totales
@@ -259,7 +278,7 @@ class administradorControlador extends administradorModelo {
 				$tabla .= '
 							<tr>
 								<td colspan="5">
-									<a href="'.SERVERURL.'adminlist/" class="btn btn-sm btn-info btn-raised">
+									<a href="'.SERVERURL.$paginaurl.'/" class="btn btn-sm btn-info btn-raised">
 										Haga click aquí para recargar el listado
 									</a>
 								</td>
@@ -295,7 +314,7 @@ class administradorControlador extends administradorModelo {
 				';
 			} else {
 				$tabla .= '
-						<li><a href="'.SERVERURL.'adminlist/'.($pagina - 1).'/"><i class="zmdi zmdi-arrow-left"></i></a></li>
+						<li><a href="'.SERVERURL.$paginaurl.'/'.($pagina - 1).'/"><i class="zmdi zmdi-arrow-left"></i></a></li>
 				';
 			}
 
@@ -303,11 +322,11 @@ class administradorControlador extends administradorModelo {
 			for($i = 1; $i <= $Npaginas; $i++) {
 				if($i == $pagina) {
 					$tabla .= '
-						<li class="active"><a href="'.SERVERURL.'adminlist/'.$i.'/">'.$i.'</i></a></li>
+						<li class="active"><a href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</i></a></li>
 					';
 				} else {
 					$tabla .= '
-						<li><a href="'.SERVERURL.'adminlist/'.$i.'/">'.$i.'</i></a></li>
+						<li><a href="'.SERVERURL.$paginaurl.'/'.$i.'/">'.$i.'</i></a></li>
 					';
 				}
 			}
@@ -319,7 +338,7 @@ class administradorControlador extends administradorModelo {
 				';
 			} else {
 				$tabla .= '
-						<li><a href="'.SERVERURL.'adminlist/'.($pagina + 1).'/"><i class="zmdi zmdi-arrow-right"></i></a></li>
+						<li><a href="'.SERVERURL.$paginaurl.'/'.($pagina + 1).'/"><i class="zmdi zmdi-arrow-right"></i></a></li>
 				';
 			}
 
