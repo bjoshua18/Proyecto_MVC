@@ -50,7 +50,7 @@ class loginControlador extends loginModelo {
 				$_SESSION['codigo_cuenta_sbp'] = $row['CuentaCodigo'];
 				$_SESSION['codigo_bitacora_sbp'] = $codigoB;
 
-				$url = $row['CuentaTipo'] == 'Administrador' ? SERVERURL.'home/' : SERVERURL.'catalog/';
+				$url = $row['CuentaTipo'] == 'Administrador' ? SERVERURL.'home' : SERVERURL.'catalog';
 				return $urlLocation = "<script> window.location='$url' </script>";
 			} else {
 				$alerta = [
