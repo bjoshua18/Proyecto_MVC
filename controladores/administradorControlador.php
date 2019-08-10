@@ -331,4 +331,9 @@ class administradorControlador extends administradorModelo {
 
 		return $tabla;
 	}
+
+	// Controlador para eliminar administradores
+	public function eliminar_administrador_controlador() {
+		
+	}
 }
