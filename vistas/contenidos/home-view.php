@@ -9,16 +9,23 @@
 	</div>
 </div>
 <div class="full-box text-center" style="padding: 30px 10px;">
+
+	<?php
+		require './controladores/administradorControlador.php';
+		$IAdmin = new administradorControlador();
+		$CAdmin = $IAdmin->datos_administrador_controlador('Conteo');
+	?>
+
 	<article class="full-box tile">
 		<div class="full-box tile-title text-center text-titles text-uppercase">
-			Admin
+			Administradores
 		</div>
 		<div class="full-box tile-icon text-center">
 			<i class="zmdi zmdi-account"></i>
 		</div>
 		<div class="full-box tile-number text-titles">
-			<p class="full-box">7</p>
-			<small>Register</small>
+			<p class="full-box"><?= $CAdmin->rowCount() ?></p>
+			<small>Registrados</small>
 		</div>
 	</article>
 	<article class="full-box tile">
