@@ -23,4 +23,16 @@ class administradorModelo extends mainModel {
 		$query->execute();
 		return $query;
 	}
+
+	protected function datos_administrador_modelo($tipo, $codigo) {
+		if($tipo == 'Unico') {
+			$query = mainModel::conectar()->prepare('SELECT * FROM admin WHERE CuentaCodigo=:Codigo');
+			$query->bindParam(':Codigo', $codigo);
+		} else if($tipo == 'Conteo') {
+			$query = mainModel::conectar()->prepare('SELECT id FROM admin WHERE id!=1');
+		}
+
+		$query->execute();
+		return $query;
+	}
 }
