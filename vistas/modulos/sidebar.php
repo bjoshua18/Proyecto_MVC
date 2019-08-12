@@ -11,14 +11,22 @@
 				<img src="<?= SERVERURL?>vistas/assets/avatars/<?= $_SESSION['foto_sbp']?>" alt="UserIcon">
 				<figcaption class="text-center text-titles">User Name</figcaption>
 			</figure>
+
+			<?php
+				if($_SESSION['tipo_sbp'] == 'Administrador')
+					$tipo = 'admin';
+				else
+					$tipo = 'user'
+			?>
+
 			<ul class="full-box list-unstyled text-center">
 				<li>
-					<a href="./mydata" title="Mis datos">
+					<a href="<?= SERVERURL?>mydata/<?= $tipo.'/'.$lc->encryption($_SESSION['codigo_cuenta_sbp']) ?>/" title="Mis datos">
 						<i class="zmdi zmdi-account-circle"></i>
 					</a>
 				</li>
 				<li>
-					<a href="./myaccount" title="Mi cuenta">
+					<a href="<?= SERVERURL?>myaccount/<?= $tipo.'/'.$lc->encryption($_SESSION['codigo_cuenta_sbp']) ?>/" title="Mi cuenta">
 						<i class="zmdi zmdi-settings"></i>
 					</a>
 				</li>
