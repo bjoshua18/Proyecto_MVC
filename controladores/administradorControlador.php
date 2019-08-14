@@ -429,6 +429,62 @@ class administradorControlador extends administradorModelo {
 
 	// Controlador para actualizar los datos de un administrador concreto
 	public function actualizar_administrador_controlador() {
+		$cuenta = mainModel::decryption($_POST['cuenta-up']);
 
+		$dni = mainModel::limpiar_cadena($_POST['dni-up']);
+		$nombre = mainModel::limpiar_cadena($_POST['nombre-up']);
+		$apellido = mainModel::limpiar_cadena($_POST['apellido-up']);
+		$telefono = mainModel::limpiar_cadena($_POST['telefono-up']);
+		$direccion = mainModel::limpiar_cadena($_POST['direccion-up']);
+
+		// Obtenemos todos los datos del administrador a actualizar
+		$query1 = mainModel::ejecutar_consulta_simple("SELECT * FROM admin WHERE CuentaCodigo='$cuenta'");
+		$DatosAdmin = $query1->fetch();
+
+		// Comprobamos que el nuevo DNI sea distinto al de la db
+		if($dni != $DatosAdmin['AdminDNI']) {
+			$consulta1 = mainModel::ejecutar_consulta_simple("SELECT AdminDNI FROM admin WHERE AdminDNI = '$dni'");
+
+			// Comprobamos que el nuevo DNI no esté en la db
+			if($consulta1->rowCount() >= 1) {
+				$alerta = [
+					'Alerta' => 'simple',
+					'Titulo' => 'Ocurrió un error inesperado',
+					'Texto' => 'El DNI que acaba de ingresar ya se encuentra registrado en el sistema',
+					'Tipo' => 'error'
+				];
+				return mainModel::sweet_alert($alerta);
+				exit();
+			}
+		}
+
+		// Creamos el array de datos
+		$dataAd = [
+			'DNI' => $dni,
+			'Nombre' => $nombre,
+			'Apellido' => $apellido,
+			'Telefono' => $telefono,
+			'Direccion' => $direccion,
+			'Codigo' => $cuenta
+		];
+
+		// Actualizamos los datos y comprobamos que se hizo correctamente
+		if(administradorModelo::actualizar_administrador_modelo($dataAd)) {
+			$alerta = [
+				'Alerta' => 'recargar',
+				'Titulo' => 'Datos actualizados',
+				'Texto' => 'Los datos han sido actualizados correctamente',
+				'Tipo' => 'success'
+			];
+		} else {
+			$alerta = [
+				'Alerta' => 'simple',
+				'Titulo' => 'Ocurrió un error inesperado',
+				'Texto' => 'No hemos podifo actualizar los datos, por favor, intenta nuevamente',
+				'Tipo' => 'error'
+			];
+		}
+
+		return mainModel::sweet_alert($alerta);
 	}
 }
