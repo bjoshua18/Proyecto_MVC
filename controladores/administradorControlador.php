@@ -419,10 +419,16 @@ class administradorControlador extends administradorModelo {
 		return mainModel::sweet_alert($alerta);
 	}
 
+	// Controlador para obtener los datos de un administrador concreto
 	public function datos_administrador_controlador($tipo, $codigo = 0) {
 		$codigo = mainModel::decryption($codigo);
 		$tipo = mainModel::limpiar_cadena($tipo);
 
 		return administradorModelo::datos_administrador_modelo($tipo, $codigo);
+	}
+
+	// Controlador para actualizar los datos de un administrador concreto
+	public function actualizar_administrador_controlador() {
+
 	}
 }

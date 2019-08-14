@@ -14,7 +14,7 @@
 		$datos = explode('/', $_GET['views']);
 
 		// ADMINISTRADOR
-		if($datos[1] == 'admin'):
+		if($datos[1] == 'admin') {
 
 			// Si no es administrador,cerrar sesion
 			if($_SESSION['tipo_sbp'] != 'Administrador')
@@ -102,18 +102,19 @@
 
 	<?php
 			}
-
+		}
 		// USUARIO
-		elseif($datos[1] == 'user'):
+		elseif($datos[1] == 'user') {
 			echo 'usuario';
+		}
 		// ERROR
-		else:
+		else {
 	?>
 
 		<h4>Lo sentimos</h4>
 		<p>No podemos mostrar la información solicitada</p>
 
 	<?php
-		endif;
+		}
 	?>
 </div>
