@@ -49,6 +49,21 @@ class mainModel {
 		return $query;
 	}
 
+	protected function actualizar_cuenta($datos) {
+		$query = self::conectar()->prepare('UPDATE cuenta SET CuentaPrivilegio=:Privilegio, CuentaUsuario=:Usuario, CuentaClave=:Clave, CuentaEmail=:Email, CuentaEstado=:Estado, CuentaGenero=:Genero, CuentaFoto=:Foto WHERE CuentaCodigo=:Codigo');
+		$query->bindParam(':Privilegio', $datos['CuentaPrivilegio']);
+		$query->bindParam(':Usuario', $datos['CuentaUsuario']);
+		$query->bindParam(':Clave', $datos['CuentaClave']);
+		$query->bindParam(':Email', $datos['CuentaEmail']);
+		$query->bindParam(':Estado', $datos['CuentaEstado']);
+		$query->bindParam(':Genero', $datos['CuentaGenero']);
+		$query->bindParam(':Foto', $datos['CuentaFoto']);
+		$query->bindParam(':Codigo', $datos['CuentaCodigo']);
+
+		$query->execute();
+		return $query;
+	}
+
 	// FUNCIONES BITACORA
 
 	protected function guardar_bitacora($datos) {
