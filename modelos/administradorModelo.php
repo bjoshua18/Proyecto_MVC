@@ -3,7 +3,7 @@
 $peticionAjax ? require_once "../core/mainModel.php" : require_once "./core/mainModel.php";
 
 class administradorModelo extends mainModel {
-	
+
 	protected function agregar_administrador_modelo($datos) {
 		$sql = mainModel::conectar()->prepare('INSERT INTO admin (AdminDNI, AdminNombre, AdminApellido, AdminTelefono, AdminDireccion, CuentaCodigo) VALUES (:DNI, :Nombre, :Apellido, :Telefono, :Direccion, :Codigo)');
 		$sql->bindParam(':DNI', $datos['DNI']);
@@ -38,6 +38,15 @@ class administradorModelo extends mainModel {
 	}
 
 	protected function actualizar_administrador_modelo($datos) {
+		$query = mainModel::conectar()->prepare('UPDATE admin SET AdminDNI=:DNI, AdminNombre=:Nombre, AdminApellido=:Apellido, AdminTelefono=:Telefono, AdminDireccion=:Direccion WHERE CuentaCodigo=:Codigo');
+		$query->bindParam(':DNI', $datos['DNI']);
+		$query->bindParam(':Nombre', $datos['Nombre']);
+		$query->bindParam(':Apellido', $datos['Apellido']);
+		$query->bindParam(':Telefono', $datos['Telefono']);
+		$query->bindParam(':Direccion', $datos['Direccion']);
+		$query->bindParam(':Codigo', $datos['Codigo']);
 
+		$query->execute();
+		return $query;
 	}
 }
