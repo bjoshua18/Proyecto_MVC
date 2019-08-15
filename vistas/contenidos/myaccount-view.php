@@ -30,7 +30,7 @@
 			<h3 class="panel-title"><i class="zmdi zmdi-refresh"></i> &nbsp; MI CUENTA</h3>
 		</div>
 		<div class="panel-body">
-			<form action="<?php echo SERVERURL; ?>ajax/cuentaAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
+			<form action="<?= SERVERURL ?>ajax/cuentaAjax.php" method="POST" data-form="update" class="FormularioAjax" autocomplete="off" enctype="multipart/form-data">
 				
 				<?php
 					// Comprobamos que la persona que modifica es el dueño de la cuenta

@@ -25,9 +25,9 @@ class cuentaControlador extends mainModel {
 			if(isset($_POST['privilegio-up'])) { // Caso en que el administrador no es el dueño de la cuenta a actualizar
 				$login = mainModel::ejecutar_consulta_simple("SELECT id FROM cuenta WHERE CuentaUsuario='$user' AND CuentaClave='$password'");
 			} else { // Caso en que el administrador es el dueño de la cuenta a actualizar
-				$login = mainModel::ejecutar_consulta_simple("SELECT id FROM cuenta WHERE CuentaUsuario='$user' AND CuentaClave='$password'AND CuentaCodigo='$CuentaCodigo'");
+				$login = mainModel::ejecutar_consulta_simple("SELECT id FROM cuenta WHERE CuentaUsuario='$user' AND CuentaClave='$password' AND CuentaCodigo='$CuentaCodigo'");
 			}
-
+			
 			// Caso en que los datos de ingreso son erroneos
 			if($login->rowCount() == 0) {
 				$alerta = [
@@ -48,6 +48,48 @@ class cuentaControlador extends mainModel {
 			];
 			return mainModel::sweet_alert($alerta);
 			exit();
+		}
+
+		// VERIFICAR USUARIO
+
+		$CuentaUsuario = mainModel::limpiar_cadena($_POST['usuario-up']);
+
+		// Comprobamos si el nuevo nombre de usuario es distinto al de la db
+		if($CuentaUsuario != $DatosCuenta['CuentaUsuario']) {
+			$query2 = mainModel::ejecutar_consulta_simple("SELECT CuentaUsuario FROM cuenta WHERE CuentaUsuario='$CuentaUsuario'");
+
+			// Comprobamos si el nuevo nombre de usuario ya esta en la db
+			if($query2->rowCount() >= 1) {
+				$alerta = [
+					'Alerta' => 'simple',
+					'Titulo' => 'Ocurrió un error inesperado',
+					'Texto' => 'El nombre de usuario que acaba de ingresar ya se encuentra registrado en el sistema',
+					'Tipo' => 'error'
+				];
+				return mainModel::sweet_alert($alerta);
+				exit();
+			}
+		}
+
+		// VERIFICAR EMAIL
+
+		$CuentaEmail = mainModel::limpiar_cadena($_POST['email-up']);
+
+		// Comprobamos si el nuevo email es distinto al de la db
+		if($CuentaEmail != $DatosCuenta['CuentaEmail']) {
+			$query3 = mainModel::ejecutar_consulta_simple("SELECT CuentaEmail FROM cuenta WHERE CuentaEmail='$CuentaEmail'");
+
+			// Comprobamos si el nuevo email ya esta en la db
+			if($query3->rowCount() >= 1) {
+				$alerta = [
+					'Alerta' => 'simple',
+					'Titulo' => 'Ocurrió un error inesperado',
+					'Texto' => 'El email que acaba de ingresar ya se encuentra registrado en el sistema',
+					'Tipo' => 'error'
+				];
+				return mainModel::sweet_alert($alerta);
+				exit();
+			}
 		}
 	}
 }

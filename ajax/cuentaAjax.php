@@ -7,7 +7,7 @@ if(isset($_POST['CodigoCuenta-up'])) { // Si vamos a agregar o eliminar un admin
 	require_once '../controladores/cuentaControlador.php';
 	$cuenta = new cuentaControlador();
 
-	if(isset($_POST['CodigoCuenta-up']) && isset($_POST['tipoCuenta-up']) && isset($_POST['usuario-up']) && isset($_POST['password-up'])) {
+	if(isset($_POST['CodigoCuenta-up']) && isset($_POST['tipoCuenta-up']) && isset($_POST['usuario-up'])) {
 		echo $cuenta->actualizar_cuenta_controlador();
 	}
 } else {
