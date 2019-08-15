@@ -50,8 +50,7 @@ class cuentaControlador extends mainModel {
 			exit();
 		}
 
-		// VERIFICAR USUARIO
-
+		// USUARIO
 		$CuentaUsuario = mainModel::limpiar_cadena($_POST['usuario-up']);
 
 		// Comprobamos si el nuevo nombre de usuario es distinto al de la db
@@ -71,8 +70,7 @@ class cuentaControlador extends mainModel {
 			}
 		}
 
-		// VERIFICAR EMAIL
-
+		// EMAIL
 		$CuentaEmail = mainModel::limpiar_cadena($_POST['email-up']);
 
 		// Comprobamos si el nuevo email es distinto al de la db
@@ -89,6 +87,42 @@ class cuentaControlador extends mainModel {
 				];
 				return mainModel::sweet_alert($alerta);
 				exit();
+			}
+		}
+
+		// GENERO
+		$CuentaGenero = mainModel::limpiar_cadena($_POST['optionsGenero-up']);
+
+		// ESTADO
+		if(isset($_POST['optionsEstado-up'])) { // Comprobamos que el estado este definido
+			$CuentaEstado = mainModel::limpiar_cadena($_POST['optionsEstado-up']);
+		} else {
+			$CuentaEstado = $DatosCuenta['CuentaEstado'];
+		}
+
+		// PRIVILEGIO
+
+		// Comprobamos que el usuario es administrador
+		if($CuentaTipo == 'admin') {
+			if(isset($_POST['optionsPrivilegio-up'])) { // Comprobamos que el privilegio este definido
+				$CuentaPrivilegio = mainModel::decryption($_POST['optionsPrivilegio-up']);
+			} else {
+				$CuentaPrivilegio = $DatosCuenta['CuentaPrivilegio'];
+			}
+
+			// Configuramos la imagen segun el genero
+			if($CuentaGenero == 'Masculino') {
+				$CuentaFoto = 'Male3Avatar.png';
+			} else {
+				$CuentaFoto = 'Female3Avatar.png';
+			}
+		} else {
+			$CuentaPrivilegio = $DatosCuenta['CuentaPrivilegio'];
+			// Configuramos la imagen segun el genero
+			if($CuentaGenero == 'Masculino') {
+				$CuentaFoto = 'Male2Avatar.png';
+			} else {
+				$CuentaFoto = 'Female2Avatar.png';
 			}
 		}
 	}
