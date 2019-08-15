@@ -176,13 +176,13 @@
 		    				<div class="col-xs-12 col-sm-6">
 								<div class="form-group label-floating">
 								  	<label class="control-label">Nombre de usuario</label>
-								  	<input class="form-control" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{1,15}" type="text" name="usuario-up" maxlength="15" required="" >
+								  	<input class="form-control" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ]{1,15}" type="text" name="user-log" maxlength="15" required="" >
 								</div>
 		    				</div>
 		    				<div class="col-xs-12 col-sm-6">
 								<div class="form-group label-floating">
 								  	<label class="control-label">Contraseña</label>
-								  	<input class="form-control" type="password" name="password-up" maxlength="50" required="">
+								  	<input class="form-control" type="password" name="password-log" maxlength="50" required="">
 								</div>
 		    				</div>
 		    			</div>
