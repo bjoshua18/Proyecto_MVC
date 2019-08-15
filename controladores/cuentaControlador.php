@@ -125,5 +125,62 @@ class cuentaControlador extends mainModel {
 				$CuentaFoto = 'Female2Avatar.png';
 			}
 		}
+
+		// PASSWORD
+		$passwordN1 = mainModel::limpiar_cadena($_POST['newPassword1-up']);
+		$passwordN2 = mainModel::limpiar_cadena($_POST['newPassword2-up']);
+
+		if($passwordN1 != '' || $passwordN2 != '') {
+			if($passwordN1 == $passwordN2) {
+				$CuentaClave = mainModel::encryption($passwordN1);
+			} else {
+				$alerta = [
+					'Alerta' => 'simple',
+					'Titulo' => 'Ocurrió un error inesperado',
+					'Texto' => 'Las nuevas contraseñas no coinciden, por favor, verifique los datos e intente nuevamente',
+					'Tipo' => 'error'
+				];
+				return mainModel::sweet_alert($alerta);
+				exit();
+			}
+		} else {
+			$CuentaClave = $DatosCuenta['CuentaClave'];
+		}
+
+		// ENVIANDO DATOS AL MODELO
+		$datosUpdate = [
+			'CuentaPrivilegio' => $CuentaPrivilegio,
+			'CuentaCodigo' => $CuentaCodigo,
+			'CuentaUsuario' => $CuentaUsuario,
+			'CuentaClave' => $CuentaClave,
+			'CuentaEmail' => $CuentaEmail,
+			'CuentaEstado' => $CuentaEstado,
+			'CuentaGenero' => $CuentaGenero,
+			'CuentaFoto' => $CuentaFoto
+		];
+
+		if(mainModel::actualizar_cuenta($datosUpdate)) {
+			if(!isset($_POST['privilegio-up'])) {
+				session_start(['name' => 'SBP']);
+				$_SESSION['usuario_sbp'] = $CuentaUsuario;
+				$_SESSION['foto_sbp'] = $CuentaFoto;
+			}
+
+			$alerta = [
+				'Alerta' => 'recargar',
+				'Titulo' => 'Cuenta actualizada',
+				'Texto' => 'Los datos de la cuenta se actualizaron con éxito',
+				'Tipo' => 'success'
+			];
+		} else {
+			$alerta = [
+				'Alerta' => 'simple',
+				'Titulo' => 'Ocurrió un error inesperado',
+				'Texto' => 'Lo sentimos, no hemos podido actualizar los datos de la cuenta',
+				'Tipo' => 'error'
+			];
+		}
+
+		return mainModel::sweet_alert($alerta);
 	}
 }

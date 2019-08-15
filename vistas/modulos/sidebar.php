@@ -9,7 +9,7 @@
 		<div class="full-box dashboard-sideBar-UserInfo">
 			<figure class="full-box">
 				<img src="<?= SERVERURL?>vistas/assets/avatars/<?= $_SESSION['foto_sbp']?>" alt="UserIcon">
-				<figcaption class="text-center text-titles">User Name</figcaption>
+				<figcaption class="text-center text-titles"><?= $_SESSION['usuario_sbp']?></figcaption>
 			</figure>
 
 			<?php
