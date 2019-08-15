@@ -91,6 +91,7 @@ class loginControlador extends loginModelo {
 	}
 
 	public function forzar_cierre_sesion_controlador() {
+		session_start(['name' => 'SBP']);
 		session_destroy();
 		return header('Location: '.SERVERURL.'login/');
 	}

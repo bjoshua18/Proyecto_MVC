@@ -3,6 +3,8 @@
 $peticionAjax ? require_once "../core/configAPP.php" : require_once "./core/configAPP.php";
 class mainModel {
 
+	// FUNCIONES DB
+
 	protected function conectar() {
 		return new PDO(SGBD, USER, PASS);
 	}
@@ -12,6 +14,8 @@ class mainModel {
 		$respuesta->execute();
 		return $respuesta;
 	}
+
+	// FUNCIONES CUENTA
 
 	protected function agregar_cuenta($datos) {
 		$sql = self::conectar()->prepare('INSERT INTO cuenta (CuentaCodigo, CuentaPrivilegio, CuentaUsuario, CuentaClave, CuentaEmail, CuentaEstado, CuentaTipo, CuentaGenero, CuentaFoto) VALUES (:Codigo, :Privilegio, :Usuario, :Clave, :Email, :Estado, :Tipo, :Genero, :Foto)');
@@ -36,6 +40,31 @@ class mainModel {
 		$sql->execute();
 		return $sql;
 	}
+
+	protected function datos_cuenta($codigo) {
+		$query = self::conectar()->prepare('SELECT * FROM cuenta WHERE CuentaCodigo=:Codigo');
+		$query->bindParam(":Codigo", $codigo);
+
+		$query->execute();
+		return $query;
+	}
+
+	protected function actualizar_cuenta($datos) {
+		$query = self::conectar()->prepare('UPDATE cuenta SET CuentaPrivilegio=:Privilegio, CuentaUsuario=:Usuario, CuentaClave=:Clave, CuentaEmail=:Email, CuentaEstado=:Estado, CuentaGenero=:Genero, CuentaFoto=:Foto WHERE CuentaCodigo=:Codigo');
+		$query->bindParam(':Privilegio', $datos['CuentaPrivilegio']);
+		$query->bindParam(':Usuario', $datos['CuentaUsuario']);
+		$query->bindParam(':Clave', $datos['CuentaClave']);
+		$query->bindParam(':Email', $datos['CuentaEmail']);
+		$query->bindParam(':Estado', $datos['CuentaEstado']);
+		$query->bindParam(':Genero', $datos['CuentaGenero']);
+		$query->bindParam(':Foto', $datos['CuentaFoto']);
+		$query->bindParam(':Codigo', $datos['CuentaCodigo']);
+
+		$query->execute();
+		return $query;
+	}
+
+	// FUNCIONES BITACORA
 
 	protected function guardar_bitacora($datos) {
 		$sql = self::conectar()->prepare("INSERT INTO bitacora(BitacoraCodigo, BitacoraFecha, BitacoraHoraInicio, BitacoraHoraFinal, BitacoraTipo, BitacoraYear, CuentaCodigo) VALUES (:Codigo, :Fecha, :HoraInicio, :HoraFinal, :Tipo, :Year, :Cuenta)");
@@ -67,6 +96,8 @@ class mainModel {
 		$sql->execute();
 		return $sql;
 	}
+
+	// FUNCIONES GENERALES
 
 	public function encryption($string) {
 		$output = false;

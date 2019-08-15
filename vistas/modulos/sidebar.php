@@ -9,16 +9,24 @@
 		<div class="full-box dashboard-sideBar-UserInfo">
 			<figure class="full-box">
 				<img src="<?= SERVERURL?>vistas/assets/avatars/<?= $_SESSION['foto_sbp']?>" alt="UserIcon">
-				<figcaption class="text-center text-titles">User Name</figcaption>
+				<figcaption class="text-center text-titles"><?= $_SESSION['usuario_sbp']?></figcaption>
 			</figure>
+
+			<?php
+				if($_SESSION['tipo_sbp'] == 'Administrador')
+					$tipo = 'admin';
+				else
+					$tipo = 'user'
+			?>
+
 			<ul class="full-box list-unstyled text-center">
 				<li>
-					<a href="./mydata" title="Mis datos">
+					<a href="<?= SERVERURL?>mydata/<?= $tipo.'/'.$lc->encryption($_SESSION['codigo_cuenta_sbp']) ?>/" title="Mis datos">
 						<i class="zmdi zmdi-account-circle"></i>
 					</a>
 				</li>
 				<li>
-					<a href="./myaccount" title="Mi cuenta">
+					<a href="<?= SERVERURL?>myaccount/<?= $tipo.'/'.$lc->encryption($_SESSION['codigo_cuenta_sbp']) ?>/" title="Mi cuenta">
 						<i class="zmdi zmdi-settings"></i>
 					</a>
 				</li>
@@ -32,7 +40,7 @@
 		<!-- SideBar Menu -->
 		<ul class="list-unstyled full-box dashboard-sideBar-Menu">
 			<li>
-				<a href="./home">
+				<a href="<?= SERVERURL?>home">
 					<i class="zmdi zmdi-view-dashboard zmdi-hc-fw"></i> Dashboard
 				</a>
 			</li>
@@ -42,16 +50,16 @@
 				</a>
 				<ul class="list-unstyled full-box">
 					<li>
-						<a href="./company"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> Empresa</a>
+						<a href="<?= SERVERURL?>company"><i class="zmdi zmdi-balance zmdi-hc-fw"></i> Empresa</a>
 					</li>
 					<li>
-						<a href="./category"><i class="zmdi zmdi-labels zmdi-hc-fw"></i> Categorí­as</a>
+						<a href="<?= SERVERURL?>category"><i class="zmdi zmdi-labels zmdi-hc-fw"></i> Categorí­as</a>
 					</li>
 					<li>
-						<a href="./provider"><i class="zmdi zmdi-truck zmdi-hc-fw"></i> Proveedores</a>
+						<a href="<?= SERVERURL?>provider"><i class="zmdi zmdi-truck zmdi-hc-fw"></i> Proveedores</a>
 					</li>
 					<li>
-						<a href="./book"><i class="zmdi zmdi-book zmdi-hc-fw"></i> Nuevo libro</a>
+						<a href="<?= SERVERURL?>book"><i class="zmdi zmdi-book zmdi-hc-fw"></i> Nuevo libro</a>
 					</li>
 				</ul>
 			</li>
@@ -61,15 +69,15 @@
 				</a>
 				<ul class="list-unstyled full-box">
 					<li>
-						<a href="./admin"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Administradores</a>
+						<a href="<?= SERVERURL?>admin"><i class="zmdi zmdi-account zmdi-hc-fw"></i> Administradores</a>
 					</li>
 					<li>
-						<a href="./client"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i> Clientes</a>
+						<a href="<?= SERVERURL?>client"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i> Clientes</a>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="./catalog">
+				<a href="<?= SERVERURL?>catalog">
 					<i class="zmdi zmdi-book-image zmdi-hc-fw"></i> Catalogo
 				</a>
 			</li>
